@@ -1,0 +1,107 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e9ecef;
+    color: #343a40;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #007bff; /* Blue color for the title */
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 10px;
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745; /* Green */
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.filter {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.filter-btn {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue for filter buttons */
+    color: white;
+    border-radius: 4px;
+}
+
+.filter-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6; /* Light gray for separator */
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: #6c757d; /* Gray for completed tasks */
+}
+
+.complete-btn {
+    background-color: #ffc107; /* Yellow for complete button */
+    padding: 5px 10px; /* Add some padding */
+    border-radius: 4px; /* Add some border radius */
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+
+.complete-btn:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Red for delete button */
+    color: white;
+    padding: 5px 10px; /* Add some padding */
+    border-radius: 4px; /* Add some border radius */
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
