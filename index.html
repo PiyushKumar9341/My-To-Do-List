@@ -3,42 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+    <!-- New font for the title: Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <title>Advanced TODO</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Tailwind CSS CDN - Ensure this is loaded for basic utility classes -->
+    
 </head>
 <body>
-    <body>
     <div class="container">
         <h1>Advanced TODO</h1>
-        <button id="darkModeToggle"> Dark Mode</button>
+        <!-- Motivational Quote - Placed directly below the title -->
+        <div id="quote" class="text-center italic"></div>
+
+        <!-- Dark Mode Toggle Button -->
+        
+        <button id="darkModeToggle">Dark Mode</button>
+
+        <!-- Personalized Welcome Message (visible after initial setup or for returning users) -->
+        <p id="personalizedGreeting" class="greeting-message">
+            Hello, <span id="userName" class="font-bold text-blue-600 cursor-pointer">Piyush Kumar</span>!
+        </p>
+
         <div class="input-group">
             <input type="text" id="taskInput" placeholder="Add a new task...">
             <button id="addTaskBtn">Add Task</button>
         </div>
-       <!-- ...existing code... -->
-<div class="filter">
-    <button class="filter-btn" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="active">Active</button>
-    <button class="filter-btn" data-filter="completed">Completed</button>
-</div>
 
-<!-- Import and Export (centered) -->
-<div class="import-export">
-    <button id="exportBtn">Export Tasks</button>
-    <input type="file" id="importInput" style="display:none;" />
-    <button id="importBtn">Import Tasks</button>
-</div>
-<ul id="taskList"></ul>
-<!-- ...existing code... -->
+        <!-- Filter Buttons -->
+        <div class="filter">
+            <button class="filter-btn" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
        
 
+        <ul id="taskList"></ul>
+
+        <!-- Redesigned Key Features Section -->
+        <section id="features" class="section-spacing">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for AI-Powered Welcome -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot"><path d="M12 8V4H8"/><path d="M2 14h2a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3a2 2 0 0 1 2-2h2v-2a2 2 0 0 0-2-2h-2a2 2 0 0 1-2-2V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v4"/></svg>
+                    </div>
+                    <h3 class="feature-title">AI-Powered Welcome</h3>
+                    <p class="feature-description">Get a personalized greeting tailored to your name and time of day.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for Task Management -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="feature-title">Task Management</h3>
+                    <p class="feature-description">Add, complete, and delete tasks with ease to keep your list updated.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for Task Filtering -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    </div>
+                    <h3 class="feature-title">Task Filtering</h3>
+                    <p class="feature-description">View all, active, or completed tasks for better focus.</p>
+                </div>
+               
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for Dark Mode Toggle -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon-star"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 0 1-9-9Z"/><path d="M19 3v4"/><path d="M21 5h-4"/><path d="M12 22v-2"/><path d="M10 14H7.5"/><path d="M14 14h2.5"/><path d="M13.5 18.5L12 17l-1.5 1.5"/><path d="M17.5 10.5 16 12l1.5 1.5"/></svg>
+                    </div>
+                    <h3 class="feature-title">Dark/Light Mode</h3>
+                    <p class="feature-description">Switch between themes for comfortable viewing day or night.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for Responsive Design -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    </div>
+                    <h3 class="feature-title">Responsive Design</h3>
+                    <p class="feature-description">Optimized for seamless use across all devices (mobile, tablet, desktop).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for Motivational Quotes -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3 class="feature-title">Motivational Quotes</h3>
+                    <p class="feature-description">Get daily inspiration to keep you motivated and productive.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Redesigned About This App Section -->
+        <section id="about" class="section-spacing">
+            <h2 class="section-title">About this</h2>
+            <p class="section-description">This is a highly advanced To-Do List application designed to boost your productivity. It helps you organize your tasks efficiently with smart features and a user-friendly interface. Stay on top of your goals, whether personal or professional, with ease.</p>
+        </section>
+
     </div>
-    <div id="quote" style="text-align:center; margin:20px 0; font-size:1.1em; color:#00aaff;"></div>
-    <footer style="text-align:center; margin-top:20px; color:#888;">
-    Developed & Designed by Piyush Kumar
-</footer>
+
+    <!-- AI Welcome Pop-up HTML (hidden by default, shown by JS) -->
+    <div id="welcomeOverlay">
+        <div id="welcomeModal">
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <input type="text" id="userNameInput" placeholder="Enter your name">
+            <button id="submitNameBtn">Let's Go!</button>
+            <button id="closeWelcomeBtn">Close</button>
+        </div>
+    </div>
+
+    <!-- Message box for copy email feedback -->
+    <div id="messageBox"></div>
+
+    <!-- Scroll to Top Button (now with icon) -->
+    <button id="scrollToTopBtn" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+    </button>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Advanced TODO. All rights reserved.</p>
+            <p>Developed & Designed by <span id="userNameFooter">Piyush Kumar</span></p>
+            <div class="contact-info">
+                <span>Contact: </span>
+                <span id="emailAddressFooter" class="email-text">piyush.s9341@gmail.com</span>
+                <button id="copyEmailBtnFooter" class="copy-email-btn">Copy Email</button>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
-</body>
 </body>
 </html>

@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     const closeWelcomeBtn = document.getElementById('closeWelcomeBtn');
     const storedUserName = localStorage.getItem('todoUserName');
 
-    // --- Copy Email Functionality Elements ---
-    const copyEmailBtn = document.getElementById('copyEmailBtn');
-    const emailAddressSpan = document.getElementById('email-address'); // Assuming this span holds the email
+    // --- Copy Email Functionality Elements (UPDATED IDs FOR FOOTER) ---
+    const copyEmailBtn = document.getElementById('copyEmailBtnFooter'); // New ID for footer button
+    const emailAddressSpan = document.getElementById('emailAddressFooter'); // New ID for footer email text
     const messageBox = document.getElementById('messageBox'); // For success/error messages
 
     // --- Scroll to Top Button Element ---
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn'); // Corrected ID reference
 
     // --- Section Highlighting Elements ---
     const sections = document.querySelectorAll('section');
@@ -56,6 +56,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         messageBox.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
         messageBox.style.color = type === 'success' ? '#155724' : '#721c24';
         messageBox.style.borderColor = type === 'success' ? '#c3e6cb' : '#f5c6cb';
+
+        // Dark mode specific colors for messageBox
+        if (document.body.classList.contains('dark-mode')) {
+             messageBox.style.backgroundColor = type === 'success' ? '#3A3A3A' : '#4A2A2A'; // Darker background for messages
+             messageBox.style.color = type === 'success' ? '#A8DADC' : '#FFC1CC'; // Accent colors for text
+             messageBox.style.borderColor = type === 'success' ? '#555' : '#7A3A3A';
+        }
+
 
         setTimeout(() => {
             messageBox.style.display = 'none';
@@ -148,7 +156,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             // Use innerHTML for simplicity here, but be mindful of XSS if task.text comes from untrusted sources
             li.innerHTML = `
-                <span class="flex-grow">${task.text}</span>
+                <div class="flex flex-col items-start flex-grow">
+                    <span>${task.text}</span>
+                </div>
                 <div class="flex space-x-2">
                     <button class="complete-btn bg-green-500 text-white px-3 py-1 rounded-md">${task.completed ? 'Undo' : 'Complete'}</button>
                     <button class="delete-btn bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
@@ -157,7 +167,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             taskList.appendChild(li);
 
             // Attach event listeners to the buttons within the newly created li
-            // Use 'tasks.indexOf(task)' to ensure correct index after filtering/re-rendering
             const originalIndex = tasks.indexOf(task); // Find original index in the 'tasks' array
             li.querySelector('.complete-btn').addEventListener('click', () => toggleComplete(originalIndex));
             li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(originalIndex));
@@ -206,7 +215,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         sectionTitles.forEach(title => {
             title.classList.remove('active');
             // Find the corresponding title for the active section
-            // This assumes section-title's parent has the section ID
             if (title.parentElement && title.parentElement.getAttribute('id') === currentActive) {
                 title.classList.add('active');
             }
@@ -217,18 +225,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     // --- Event Listeners and Initial Calls ---
 
     // AI Welcome Pop-up Logic
-    if (!storedUserName) {
-        // First time user, show name input
-        if (welcomeOverlay) welcomeOverlay.style.display = 'flex';
-        if (modalTitle) modalTitle.textContent = "Welcome to your Advanced TODO!";
-        if (modalMessage) modalMessage.textContent = "What should I call you?";
-        if (userNameInput) userNameInput.style.display = 'block';
-        if (submitNameBtn) submitNameBtn.style.display = 'block';
-        if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none';
+    if (welcomeOverlay) {
+        if (!storedUserName) {
+            welcomeOverlay.style.display = 'flex';
+            if (modalTitle) modalTitle.textContent = "Welcome to your Advanced TODO!";
+            if (modalMessage) modalMessage.textContent = "What should I call you?";
+            if (userNameInput) userNameInput.style.display = 'block';
+            if (submitNameBtn) submitNameBtn.style.display = 'block';
+            if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none';
+        } else {
+            await showWelcomeOverlay(storedUserName, false);
+        }
     } else {
-        // Returning user, directly show AI welcome
-        showWelcomeOverlay(storedUserName, false);
+        console.warn("Welcome overlay element not found. AI welcome pop-up will not function.");
     }
+
 
     if (submitNameBtn) {
         submitNameBtn.addEventListener('click', async function() {
@@ -237,7 +248,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                 localStorage.setItem('todoUserName', name);
                 await showWelcomeOverlay(name, true);
             } else {
-                // Use showMessage for better UX instead of alert
                 showMessage('Please enter your name!', 'error');
             }
         });
@@ -285,7 +295,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
             document.body.removeChild(tempInput);
         });
+    } else {
+        console.warn("Email copy button or email address span not found. Email copy feature will not function.");
     }
+
 
     // Scroll to Top Button Functionality
     if (scrollToTopBtn) {
@@ -300,11 +313,19 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         });
+    } else {
+        console.warn("Scroll to top button not found. Scroll to top feature will not function.");
     }
 
+
     // Section Highlighting
-    window.addEventListener('scroll', highlightActiveSection);
-    highlightActiveSection(); // Call on load to set initial active section
+    if (sections.length > 0 && sectionTitles.length > 0) {
+        window.addEventListener('scroll', highlightActiveSection);
+        highlightActiveSection();
+    } else {
+        console.warn("Sections or section titles not found for highlighting. Skipping feature.");
+    }
+
 
     // Skills Hover Effect (placeholder as per original)
     skillItems.forEach(item => {
@@ -320,7 +341,43 @@ document.addEventListener('DOMContentLoaded', async function() {
         userName.addEventListener('mouseleave', function() {
             userName.classList.remove('hovered');
         });
+    } else {
+        console.warn("User name element not found for hover effect. Skipping feature.");
     }
+
+
+    // Dark Mode Toggle
+    if (darkModeToggle) {
+        // Function to apply/remove dark mode class and update button text
+        const applyDarkMode = (isEnabled) => {
+            if (isEnabled) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.textContent = 'Light Mode';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                darkModeToggle.textContent = 'Dark Mode';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        };
+
+        // Event listener for the toggle button
+        darkModeToggle.addEventListener('click', function() {
+            const isCurrentlyDarkMode = document.body.classList.contains('dark-mode');
+            applyDarkMode(!isCurrentlyDarkMode); // Toggle the state
+        });
+
+        // Apply dark mode preference on initial load
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'enabled') {
+            applyDarkMode(true);
+        } else {
+            applyDarkMode(false); // Ensure light mode is applied if not explicitly enabled
+        }
+    } else {
+        console.warn("Dark mode toggle button not found. Dark mode feature will not function.");
+    }
+
 
     // Export tasks
     if (exportBtn) {
@@ -331,7 +388,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             dlAnchor.setAttribute("download", "tasks.json");
             dlAnchor.click();
         };
+    } else {
+        console.warn("Export button not found. Export feature will not function.");
     }
+
 
     // Import tasks
     if (importBtn && importInput) {
@@ -354,15 +414,25 @@ document.addEventListener('DOMContentLoaded', async function() {
             };
             reader.readAsText(file);
         };
+    } else {
+        console.warn("Import button or input not found. Import feature will not function.");
     }
+
 
     // Initial load and render of tasks
     loadTasks();
     renderTasks();
 
     // Fetch random quote from API
-    // Ensure the 'quote' element exists before trying to set its textContent
     if (quoteEl) {
+        const placeholderQuotes = [
+            "Loading a fresh dose of motivation...",
+            "The secret of getting ahead is getting started.",
+            "Little things make big days."
+        ];
+        quoteEl.textContent = placeholderQuotes[Math.floor(Math.random() * placeholderQuotes.length)];
+
+
         fetch('https://api.quotable.io/random')
             .then(response => {
                 if (!response.ok) {
@@ -375,7 +445,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             })
             .catch(error => {
                 console.error('Error fetching quote:', error);
-                // Fallback to a local quote if API fails
                 const quotes = [
                     "Believe you can and you're halfway there.",
                     "Success is not final, failure is not fatal: It is the courage to continue that counts.",
@@ -390,5 +459,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 ];
                 quoteEl.textContent = quotes[Math.floor(Math.random() * quotes.length)];
             });
+    } else {
+        console.warn("Quote element not found. Quote feature will not function.");
     }
 });
