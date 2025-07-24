@@ -17,7 +17,10 @@ body {
 
 h1 {
     text-align: center;
-    color: #007bff; /* Blue color for the title */
+    color: #007bff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 .input-group {
@@ -43,6 +46,14 @@ button {
 
 button:hover {
     background-color: #218838; /* Darker green on hover */
+}
+               /*Import export*/
+.import-export {
+    text-align: center;
+    margin: 20px 0;
+}
+.import-export button {
+    margin: 0 10px;
 }
 
 .filter {
@@ -81,27 +92,147 @@ li.completed {
 }
 
 .complete-btn {
-    background-color: #ffc107; /* Yellow for complete button */
-    padding: 5px 10px; /* Add some padding */
-    border-radius: 4px; /* Add some border radius */
+    background-color: #cdf2d1; /* Yellow for complete button */
+    padding: 5px 10px;
+    border-radius: 4px;
     border: none;
     color: black;
     cursor: pointer;
 }
 
 .complete-btn:hover {
-    background-color: #e0a800; /* Darker yellow on hover */
+    background-color: #13ff02; /* Darker yellow on hover */
 }
 
 .delete-btn {
     background-color: #dc3545; /* Red for delete button */
     color: white;
-    padding: 5px 10px; /* Add some padding */
-    border-radius: 4px; /* Add some border radius */
+    padding: 5px 10px;
+    border-radius: 4px;
     border: none;
     cursor: pointer;
 }
 
 .delete-btn:hover {
     background-color: #c82333; /* Darker red on hover */
+}
+
+/* Light mode completed task highlight */
+.completed {
+    background-color: #d4edda; /* Light green */
+}
+
+/* DARK MODE STYLES */
+
+body.dark-mode {
+    background-color: #2C2C2C;
+    color: #E4E4E4;
+}
+
+body.dark-mode .container {
+    background-color: #232323;
+    border-color: #A8DADC;
+    box-shadow: 0 8px 32px rgba(168, 218, 220, 0.10);
+}
+
+body.dark-mode h1 {
+    color: #A8DADC;
+    text-shadow: 0 0 10px #A8DADC, 0 0 20px #B39CD0;
+    animation: glow 10s infinite;
+    transition: color 0.3s, text-shadow 0.3s;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+body.dark-mode input,
+body.dark-mode button {
+    background-color: #232323;
+    color: #E4E4E4;
+    border-color: #A8DADC;
+}
+
+body.dark-mode input[type="text"] {
+    border: 2px solid #A8DADC;
+    box-shadow: 0 0 8px #A8DADC;
+    background-color: #232323;
+    color: #E4E4E4;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+body.dark-mode .filter-btn,
+body.dark-mode button {
+    background-color: #B39CD0;
+    color: #232323;
+    border: none;
+}
+
+body.dark-mode .filter-btn:hover,
+body.dark-mode button:hover {
+    background-color: #A8DADC;
+    color: #232323;
+    box-shadow: 0 0 8px #FFC1CC;
+    transform: scale(1.05);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+body.dark-mode .completed {
+    background-color: #232323;
+    color: #A8DADC;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px #A8DADC33;
+    border: 1px solid #A8DADC;
+    font-weight: 500;
+}
+
+body.dark-mode .complete-btn {
+    background-color: #FFC1CC;
+    color: #232323;
+}
+
+body.dark-mode .complete-btn:hover {
+    background-color: #A8DADC;
+    color: #232323;
+}
+
+body.dark-mode .delete-btn {
+    background-color: #FFC1CC;
+    color: #232323;
+}
+
+body.dark-mode .delete-btn:hover {
+    background-color: #B39CD0;
+    color: #232323;
+}
+
+body.dark-mode footer {
+    color: #A8DADC;
+    text-shadow: 0 0 8px #A8DADC;
+}
+
+
+/* Glowing heading in dark mode */
+@keyframes glow {
+    0% { text-shadow: 0 0 10px #00aaff, 0 0 20px #007bff; }
+    50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00aaff; }
+    100% { text-shadow: 0 0 10px #00aaff, 0 0 20px #007bff; }
+}
+body.dark-mode h1 {
+    color: #A8DADC; /* Accent 1: light cyan */
+    text-shadow: 0 0 10px #A8DADC, 0 0 20px #FFC1CC; /* Accent 2: soft pink */
+    animation: glow 2s infinite;
+    transition: color 0.3s, text-shadow 0.3s;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+/* Button hover glow in dark mode */
+body.dark-mode button:hover,
+body.dark-mode .filter-btn:hover {
+    box-shadow: 0 0 8px #00aaff;
+    transform: scale(1.05);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* Footer glow in dark mode */
+body.dark-mode footer {
+    color: #00aaff;
+    text-shadow: 0 0 8px #00aaff;
 }

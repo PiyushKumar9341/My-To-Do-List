@@ -62,3 +62,95 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTasks();
  });
  
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+
+    // Motivational quotes array
+    const quotes = [
+        "Believe you can and you're halfway there.",
+        "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+        "Don’t watch the clock; do what it does. Keep going.",
+        "The secret of getting ahead is getting started.",
+        "It always seems impossible until it’s done.",
+        "Dream big and dare to fail.",
+        "Start where you are. Use what you have. Do what you can.",
+        "Push yourself, because no one else is going to do it for you.",
+        "Great things never come from comfort zones.",
+        "Little things make big days."
+    ];
+
+    // Show a random quote
+    const quoteEl = document.getElementById('quote');
+    if (quoteEl) {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteEl.textContent = randomQuote;
+    }
+
+    
+});
+
+
+const darkModeToggle = document.getElementById('darkModeToggle');
+darkModeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+        darkModeToggle.textContent = ' Light Mode';
+    } else {
+        darkModeToggle.textContent = ' Dark Mode';
+    }
+});
+
+// Save tasks to localStorage
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Load tasks from localStorage
+function loadTasks() {
+    const stored = localStorage.getItem('tasks');
+    if (stored) {
+        tasks = JSON.parse(stored);
+    }
+}
+
+// Call loadTasks() when the app starts
+document.addEventListener('DOMContentLoaded', () => {
+    loadTasks();
+    renderTasks();
+    // ...rest of your code...
+});
+// Export tasks
+document.getElementById('exportBtn').onclick = function() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks));
+    const dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", "tasks.json");
+    dlAnchor.click();
+};
+
+// Import tasks
+document.getElementById('importBtn').onclick = function() {
+    document.getElementById('importInput').click();
+};
+document.getElementById('importInput').onchange = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            tasks = JSON.parse(e.target.result);
+            saveTasks();
+            renderTasks();
+        } catch {
+            alert("Invalid file!");
+        }
+    };
+    reader.readAsText(file);
+};
+fetch('https://api.quotable.io/random')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('quote').textContent = data.content;
+    });
+ 
