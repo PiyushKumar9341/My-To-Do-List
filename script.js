@@ -20,17 +20,18 @@ document.addEventListener('DOMContentLoaded', async function() {
     const messageBox = document.getElementById('messageBox'); // For success/error messages
 
     // --- Scroll to Top Button Element ---
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn'); // Corrected ID reference
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
     // --- Section Highlighting Elements ---
     const sections = document.querySelectorAll('section');
-    const sectionTitles = document.querySelectorAll('.section-title'); // Assuming these are your nav links/titles
+    const sectionTitles = document.querySelectorAll('.section-title');
 
     // --- Skills Hover Effect Elements ---
     const skillItems = document.querySelectorAll('.skill-item');
 
     // --- Name Hover Effect Element ---
-    const userName = document.getElementById('userName');
+    const userNameDisplay = document.getElementById('userName'); // This is the span element for "Piyush Kumar" / user's name
+
 
     // --- Dark Mode Toggle Element ---
     const darkModeToggle = document.getElementById('darkModeToggle');
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // --- Export/Import Elements ---
     const exportBtn = document.getElementById('exportBtn');
     const importBtn = document.getElementById('importBtn');
-    const importInput = document.getElementById('importInput'); // Hidden file input for import
+    const importInput = document.getElementById('importInput');
 
     // --- Quote Element ---
     const quoteEl = document.getElementById('quote');
@@ -59,8 +60,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         // Dark mode specific colors for messageBox
         if (document.body.classList.contains('dark-mode')) {
-             messageBox.style.backgroundColor = type === 'success' ? '#3A3A3A' : '#4A2A2A'; // Darker background for messages
-             messageBox.style.color = type === 'success' ? '#A8DADC' : '#FFC1CC'; // Accent colors for text
+             messageBox.style.backgroundColor = type === 'success' ? '#3A3A3A' : '#4A2A2A';
+             messageBox.style.color = type === 'success' ? '#A8DADC' : '#FFC1CC';
              messageBox.style.borderColor = type === 'success' ? '#555' : '#7A3A3A';
         }
 
@@ -79,14 +80,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Fetches AI welcome message from Netlify Function
-    async function fetchAiWelcomeMessage(userName, timeOfDay) {
+    async function fetchAiWelcomeMessage(userName) { // Removed timeOfDay as it's not strictly used in prompt
         try {
             const response = await fetch('/.netlify/functions/get-ai-welcome', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userName: userName, timeOfDay: timeOfDay })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName: userName, timeOfDay: getTimeOfDay() }) // Pass timeOfDay here
             });
             const data = await response.json();
             if (response.ok) {
@@ -97,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         } catch (error) {
             console.error('Error fetching AI message:', error);
-            return `Hello ${userName}, I'm here to help you get organized!`; // Fallback message
+            return `Hello ${userName}, I'm here to help you get organized!`;
         }
     }
 
@@ -108,18 +107,23 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
 
+        // Set the greeting text for the main page
+        if (userNameDisplay) {
+            userNameDisplay.textContent = userName; // Set textContent directly
+        }
+
         const timeOfDay = getTimeOfDay();
         modalTitle.textContent = isNewUser ? "Welcome to your Advanced TODO!" : `Welcome back, ${userName}!`;
-        userNameInput.style.display = 'none'; // Hide input field
-        submitNameBtn.style.display = 'none'; // Hide submit button
-        closeWelcomeBtn.style.display = 'block'; // Show close button
+        userNameInput.style.display = 'none';
+        submitNameBtn.style.display = 'none';
+        closeWelcomeBtn.style.display = 'block';
 
-        modalMessage.textContent = 'Generating a personalized message...'; // Loading message
+        modalMessage.textContent = 'Generating a personalized message...';
 
         const aiMessage = await fetchAiWelcomeMessage(userName, timeOfDay);
         modalMessage.textContent = aiMessage;
 
-        welcomeOverlay.style.display = 'flex'; // Show the overlay
+        welcomeOverlay.style.display = 'flex';
     }
 
     // Saves tasks to localStorage
@@ -141,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.warn("Task list element not found for rendering.");
             return;
         }
-        taskList.innerHTML = ''; // Clear existing tasks
+        taskList.innerHTML = '';
         let filteredTasks = tasks;
 
         if (filter === 'active') {
@@ -152,9 +156,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         filteredTasks.forEach((task, index) => {
             const li = document.createElement('li');
-            li.className = `flex justify-between items-center p-2 mb-2 rounded-md ${task.completed ? 'completed' : ''}`; // Add your styling classes
+            li.className = `flex justify-between items-center p-2 mb-2 rounded-md ${task.completed ? 'completed' : ''}`;
 
-            // Use innerHTML for simplicity here, but be mindful of XSS if task.text comes from untrusted sources
             li.innerHTML = `
                 <div class="flex flex-col items-start flex-grow">
                     <span>${task.text}</span>
@@ -166,12 +169,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             `;
             taskList.appendChild(li);
 
-            // Attach event listeners to the buttons within the newly created li
-            const originalIndex = tasks.indexOf(task); // Find original index in the 'tasks' array
+            const originalIndex = tasks.indexOf(task);
             li.querySelector('.complete-btn').addEventListener('click', () => toggleComplete(originalIndex));
             li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(originalIndex));
         });
-        saveTasks(); // Save tasks after rendering
+        saveTasks();
     }
 
     // Adds a new task
@@ -180,23 +182,23 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (taskText) {
             tasks.push({ text: taskText, completed: false });
             taskInput.value = '';
-            renderTasks(); // Re-render to show new task
+            renderTasks();
         }
     }
 
     // Toggles task completion status
     function toggleComplete(index) {
-        if (tasks[index]) { // Ensure task exists
+        if (tasks[index]) {
             tasks[index].completed = !tasks[index].completed;
-            renderTasks(); // Re-render to reflect change
+            renderTasks();
         }
     }
 
     // Deletes a task
     function deleteTask(index) {
-        if (tasks[index]) { // Ensure task exists
-            tasks.splice(index, 1); // Remove task at index
-            renderTasks(); // Re-render to reflect change
+        if (tasks[index]) {
+            tasks.splice(index, 1);
+            renderTasks();
         }
     }
 
@@ -206,7 +208,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            // Check if the section is in the viewport, considering a buffer
             if (window.pageYOffset >= sectionTop - sectionHeight / 3) {
                 currentActive = section.getAttribute('id');
             }
@@ -214,7 +215,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         sectionTitles.forEach(title => {
             title.classList.remove('active');
-            // Find the corresponding title for the active section
             if (title.parentElement && title.parentElement.getAttribute('id') === currentActive) {
                 title.classList.add('active');
             }
@@ -223,6 +223,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
     // --- Event Listeners and Initial Calls ---
+
+    // Personalized Greeting Element (p tag)
+    const personalizedGreeting = document.getElementById('personalizedGreeting');
+    if (!personalizedGreeting) {
+        console.warn("Personalized greeting element (p#personalizedGreeting) not found. Skipping dynamic name display.");
+    }
+
 
     // AI Welcome Pop-up Logic
     if (welcomeOverlay) {
@@ -234,6 +241,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (submitNameBtn) submitNameBtn.style.display = 'block';
             if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none';
         } else {
+            // Set the greeting text for the main page immediately for returning users
+            if (userNameDisplay) { // Use userNameDisplay here
+                userNameDisplay.textContent = storedUserName;
+            }
+            // Then show the AI welcome overlay
             await showWelcomeOverlay(storedUserName, false);
         }
     } else {
@@ -246,6 +258,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             const name = userNameInput.value.trim();
             if (name) {
                 localStorage.setItem('todoUserName', name);
+                // Update the main page greeting with the entered name
+                if (userNameDisplay) { // Use userNameDisplay here
+                    userNameDisplay.textContent = name;
+                }
                 await showWelcomeOverlay(name, true);
             } else {
                 showMessage('Please enter your name!', 'error');
@@ -333,16 +349,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         // you would add mouseenter/mouseleave listeners here.
     });
 
-    // Name Hover Effect
-    if (userName) {
-        userName.addEventListener('mouseenter', function() {
-            userName.classList.add('hovered');
+    // Name Hover Effect (Attached once, outside conditional logic)
+    if (userNameDisplay) {
+        userNameDisplay.addEventListener('mouseenter', function() {
+            userNameDisplay.classList.add('hovered');
         });
-        userName.addEventListener('mouseleave', function() {
-            userName.classList.remove('hovered');
+        userNameDisplay.addEventListener('mouseleave', function() {
+            userNameDisplay.classList.remove('hovered');
         });
     } else {
-        console.warn("User name element not found for hover effect. Skipping feature.");
+        console.warn("User name display element not found for hover effect. Skipping feature.");
     }
 
 

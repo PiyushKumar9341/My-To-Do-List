@@ -42,8 +42,8 @@ exports.handler = async function(event, context) {
             };
         }
 
-        // Get the generative model. Changed from 'gemini-pro' to 'gemini-1.0-pro' for better availability.
-        const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" }); // FIX IS HERE
+        // Get the generative model. Changed from 'gemini-1.0-pro' to 'gemini-1.5-flash' for better availability.
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // FIX IS HERE
 
         // Construct the prompt for the AI model.
         const prompt = `Generate a short, friendly, and motivational welcome message for a to-do list app user. 
