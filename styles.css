@@ -55,9 +55,10 @@ body.dark-mode h1 {
 
 /* Personalized Greeting Message Styling */
 .greeting-message {
-    font-size: 1.2em; /* Slightly smaller, more balanced */
-    font-weight: 500; /* Regular weight */
-    color: #333; /* Default dark text for light mode */
+    font-family: 'Quicksand', sans-serif; /* New font for greeting */
+    font-size: 1.5em; /* Larger font size for impact */
+    font-weight: 600; /* Bold font weight */
+    color: #007bff; /* Blue color for light mode */
     margin-top: 20px; /* Space above */
     margin-bottom: 20px; /* Space below */
     opacity: 0; /* Hidden initially for animation */
@@ -66,7 +67,7 @@ body.dark-mode h1 {
 }
 
 body.dark-mode .greeting-message {
-    color: #E4E4E4; /* Primary Text: light gray for dark mode */
+    color: #A8DADC; /* Accent 1 for dark mode */
 }
 
 .greeting-message #userName {
@@ -76,7 +77,7 @@ body.dark-mode .greeting-message {
 }
 
 body.dark-mode .greeting-message #userName {
-    color: #A8DADC; /* Accent 1 for name in dark mode */
+    color: #FFC1CC; /* Soft pink for name in dark mode */
 }
 
 /* New Hover Effect for userName */
@@ -753,7 +754,7 @@ body.dark-mode #closeWelcomeBtn:hover {
 #modalButtonsContainer {
     display: flex;
     justify-content: center; /* Centers items horizontally */
-    gap: 10px; /* Space between buttons */
+    gap: 10px; /* Space between buttons if multiple */
     margin-top: 20px; /* Space above buttons */
 }
 
