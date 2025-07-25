@@ -749,6 +749,14 @@ body.dark-mode #closeWelcomeBtn:hover {
     background-color: #9B82B8;
 }
 
+/* Modal Buttons Container - Centering */
+#modalButtonsContainer {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px; /* Space above buttons */
+}
+
 
 /* Ensure font is applied to all elements */
 * {
