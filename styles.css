@@ -670,7 +670,7 @@ body.dark-mode .section-title.active {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     max-width: 400px;
     width: 90%;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
     /* Glowing effect for the modal itself */
     box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2), 0 0 20px rgba(0, 123, 255, 0.4);
 }
@@ -678,7 +678,7 @@ body.dark-mode #welcomeModal {
     background: #3A3A3A;
     color: #E4E4E4;
     /* Glowing effect for the modal itself in dark mode */
-    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2), 0 0 20px rgba(0, 123, 255, 0.4); /* Changed to blue glow for dark mode */
 }
 body.dark-mode #welcomeModal h2 {
     color: #007bff;

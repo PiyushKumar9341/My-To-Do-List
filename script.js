@@ -353,8 +353,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Skills Hover Effect (placeholder as per original)
     skillItems.forEach(item => {
-        // Tailwind's hover classes are usually sufficient, but if more complex JS interaction is needed,
-        // you would add mouseenter/mouseleave listeners here.
+        
     });
 
     // Name Hover Effect (Attached once, outside conditional logic)
