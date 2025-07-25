@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const modalMessage = document.getElementById('modalMessage');
     const userNameInput = document.getElementById('userNameInput');
     const submitNameBtn = document.getElementById('submitNameBtn');
-    const closeWelcomeBtn = document.getElementById('closeWelcomeBtn');
+    const closeWelcomeBtn = document.getElementById('closeWelcomeBtn'); // Still reference, but will hide/remove listeners
     const storedUserName = localStorage.getItem('todoUserName');
 
     // --- Copy Email Functionality Elements (UPDATED IDs FOR FOOTER) ---
@@ -80,12 +80,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Fetches AI welcome message from Netlify Function
-    async function fetchAiWelcomeMessage(userName) { // Removed timeOfDay as it's not strictly used in prompt
+    async function fetchAiWelcomeMessage(userName) {
         try {
             const response = await fetch('/.netlify/functions/get-ai-welcome', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userName: userName, timeOfDay: getTimeOfDay() }) // Pass timeOfDay here
+                body: JSON.stringify({ userName: userName, timeOfDay: getTimeOfDay() })
             });
             const data = await response.json();
             if (response.ok) {
@@ -109,21 +109,25 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         // Set the greeting text for the main page
         if (userNameDisplay) {
-            userNameDisplay.textContent = userName; // Set textContent directly
+            userNameDisplay.textContent = userName;
         }
 
         const timeOfDay = getTimeOfDay();
         modalTitle.textContent = isNewUser ? "Welcome to your Advanced TODO!" : `Welcome back, ${userName}!`;
-        userNameInput.style.display = 'none';
-        submitNameBtn.style.display = 'none';
-        closeWelcomeBtn.style.display = 'block';
+        userNameInput.style.display = 'none'; // Always hide input after initial interaction
+        submitNameBtn.style.display = 'none'; // Always hide submit after initial interaction
 
-        modalMessage.textContent = 'Generating a personalized message...';
+        modalMessage.textContent = 'Generating a personalized message...'; // Loading message
 
-        const aiMessage = await fetchAiWelcomeMessage(userName, timeOfDay);
+        const aiMessage = await fetchAiWelcomeMessage(userName);
         modalMessage.textContent = aiMessage;
 
-        welcomeOverlay.style.display = 'flex';
+        welcomeOverlay.style.display = 'flex'; // Show the overlay
+
+        // Auto-close the pop-up after AI message is displayed
+        setTimeout(() => {
+            welcomeOverlay.style.display = 'none';
+        }, 3000); // Close after 3 seconds
     }
 
     // Saves tasks to localStorage
@@ -231,21 +235,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
 
-    // AI Welcome Pop-up Logic
+    // AI Welcome Pop-up Logic - Initial Display
     if (welcomeOverlay) {
         if (!storedUserName) {
+            // First time user: show name input, hide close button
             welcomeOverlay.style.display = 'flex';
             if (modalTitle) modalTitle.textContent = "Welcome to your Advanced TODO!";
             if (modalMessage) modalMessage.textContent = "What should I call you?";
             if (userNameInput) userNameInput.style.display = 'block';
             if (submitNameBtn) submitNameBtn.style.display = 'block';
-            if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none';
+            if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none'; // Hide close button
         } else {
-            // Set the greeting text for the main page immediately for returning users
-            if (userNameDisplay) { // Use userNameDisplay here
+            // Returning user: set name, show AI message, auto-close
+            if (userNameDisplay) {
                 userNameDisplay.textContent = storedUserName;
             }
-            // Then show the AI welcome overlay
             await showWelcomeOverlay(storedUserName, false);
         }
     } else {
@@ -253,15 +257,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
 
+    // Event listener for the "Let's Go!" button (submitNameBtn)
     if (submitNameBtn) {
         submitNameBtn.addEventListener('click', async function() {
             const name = userNameInput.value.trim();
             if (name) {
                 localStorage.setItem('todoUserName', name);
                 // Update the main page greeting with the entered name
-                if (userNameDisplay) { // Use userNameDisplay here
+                if (userNameDisplay) {
                     userNameDisplay.textContent = name;
                 }
+                // Show AI message and auto-close
                 await showWelcomeOverlay(name, true);
             } else {
                 showMessage('Please enter your name!', 'error');
@@ -269,11 +275,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
+    // Ensure the "Close" button is initially hidden and its listener is removed if not used
     if (closeWelcomeBtn) {
-        closeWelcomeBtn.addEventListener('click', function() {
-            if (welcomeOverlay) welcomeOverlay.style.display = 'none';
-        });
+        closeWelcomeBtn.style.display = 'none'; // Ensure it's hidden by default for this flow
+        // Remove any existing click listeners if they were attached
+        closeWelcomeBtn.removeEventListener('click', function() {}); // Dummy function to remove all listeners
     }
+
 
     // To-Do List Event Listeners
     if (addTaskBtn) {

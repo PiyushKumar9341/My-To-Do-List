@@ -673,11 +673,11 @@ body.dark-mode .section-title.active {
     transition: background-color 0.3s ease;
 }
 body.dark-mode #welcomeModal {
-    background: #3A3A3A; /* Dark background for modal */
-    color: #E4E4E4; /* Primary text for modal */
+    background: #3A3A3A;
+    color: #E4E4E4;
 }
 body.dark-mode #welcomeModal h2 {
-    color: #007bff; /* Set to blue as requested */
+    color: #007bff;
     margin-bottom: 15px;
     font-size: 1.8em;
 }
@@ -685,7 +685,7 @@ body.dark-mode #welcomeModal p {
     margin-bottom: 20px;
     font-size: 1em;
     line-height: 1.5;
-    color: #E4E4E4; /* Set to white as requested */
+    color: #E4E4E4;
 }
 #userNameInput {
     width: calc(100% - 20px);
