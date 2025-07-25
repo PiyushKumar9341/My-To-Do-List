@@ -470,22 +470,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             .catch(error => {
                 console.error('Error fetching quote:', error);
                 const quotes = [
-                    "Remember, a messy desk is a sign of a creative mind... or just a messy desk. Get to it!",
-                        "You're not procrastinating, you're just giving your tasks time to mature.",
-                        "May your coffee be strong and your to-do list short.",
-                        "Don't worry about failures, worry about the chances you miss when you don't even try. (Also, don't miss lunch.)",
-                        "Life is short. Smile while you still have teeth. And finish that task!",
-                        "The only thing standing between you and your goal is the BS story you keep telling yourself. And maybe that one task you keep avoiding.",
-                        "You're amazing. Now go prove it to your to-do list.",
-                        "Success is the sum of small efforts repeated day in and day out. Like checking off tiny tasks.",
-                        "You are capable of amazing things. Especially after coffee.",
-                        "Even the smallest step in the right direction is a step. Especially if it's towards the fridge.",
-                        "Be a stardust soul with a to-do list.",
-                        "You've got this. And if you don't, there's always tomorrow (but try today!).",
-                        "The best way to predict the future is to create it. One task at a time.",
-                        "You are braver than you believe, stronger than you seem, and smarter than you think. And you can definitely conquer that to-do list.",
-                        "Sending you a virtual hug and a gentle reminder to tackle that one thing.",
-                        "You are the artist of your own life. Don't hand the paintbrush to anyone else.",
                     "Believe you can and you're halfway there.",
                     "Success is not final, failure is not fatal: It is the courage to continue that counts.",
                     "Don’t watch the clock; do what it does. Keep going.",
@@ -495,7 +479,23 @@ document.addEventListener('DOMContentLoaded', async function() {
                     "Start where you are. Use what you have. Do what you can.",
                     "Push yourself, because no one else is going to do it for you.",
                     "Great things never come from comfort zones.",
-                    "Little things make big days."
+                    "Little things make big days.",
+                    "Remember, a messy desk is a sign of a creative mind... or just a messy desk. Get to it!",
+                    "You're not procrastinating, you're just giving your tasks time to mature.",
+                    "May your coffee be strong and your to-do list short.",
+                    "Don't worry about failures, worry about the chances you miss when you don't even try. (Also, don't miss lunch.)",
+                    "Life is short. Smile while you still have teeth. And finish that task!",
+                    "The only thing standing between you and your goal is the BS story you keep telling yourself. And maybe that one task you keep avoiding.",
+                    "You're amazing. Now go prove it to your to-do list.",
+                        "Success is the sum of small efforts repeated day in and day out. Like checking off tiny tasks.",
+                        "You are capable of amazing things. Especially after coffee.",
+                        "Even the smallest step in the right direction is a step. Especially if it's towards the fridge.",
+                        "Be a stardust soul with a to-do list.",
+                        "You've got this. And if you don't, there's always tomorrow (but try today!).",
+                        "The best way to predict the future is to create it. One task at a time.",
+                        "You are braver than you believe, stronger than you seem, and smarter than you think. And you can definitely conquer that to-do list.",
+                        "Sending you a virtual hug and a gentle reminder to tackle that one thing.",
+                        "You are the artist of your own life. Don't hand the paintbrush to anyone else.",
                 ];
                 quoteEl.textContent = quotes[Math.floor(Math.random() * quotes.length)];
             });
