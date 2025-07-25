@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+
     <!-- New font for the title: Orbitron -->
+     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <title>Advanced TODO</title>
-     <link rel="stylesheet" href="styles.css">--
-    <!-- Tailwind CSS CDN - Ensure this is loaded for basic utility classes -->
-   
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
     <div class="container">
@@ -36,6 +37,7 @@
             <button class="filter-btn" data-filter="active">Active</button>
             <button class="filter-btn" data-filter="completed">Completed</button>
         </div>
+
 
         <ul id="taskList"></ul>
 
@@ -67,7 +69,14 @@
                     <h3 class="feature-title">Task Filtering</h3>
                     <p class="feature-description">View all, active, or completed tasks for better focus.</p>
                 </div>
-               
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <!-- Icon for Data Export & Import -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+                    </div>
+                    <h3 class="feature-title">Data Portability</h3>
+                    <p class="feature-description">Export and import your tasks to backup or move your list.</p>
+                </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <!-- Icon for Dark Mode Toggle -->
