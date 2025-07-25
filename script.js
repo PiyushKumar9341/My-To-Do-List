@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const modalMessage = document.getElementById('modalMessage');
     const userNameInput = document.getElementById('userNameInput');
     const submitNameBtn = document.getElementById('submitNameBtn');
-    const closeWelcomeBtn = document.getElementById('closeWelcomeBtn'); // Still reference, but will hide/remove listeners
+    const closeWelcomeBtn = document.getElementById('closeWelcomeBtn'); // Still reference, but will hide/change text
     const storedUserName = localStorage.getItem('todoUserName');
 
     // --- Copy Email Functionality Elements (UPDATED IDs FOR FOOTER) ---
@@ -114,8 +114,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const timeOfDay = getTimeOfDay();
         modalTitle.textContent = isNewUser ? "Welcome to your Advanced TODO!" : `Welcome back, ${userName}!`;
-        userNameInput.style.display = 'none'; // Always hide input after initial interaction
-        submitNameBtn.style.display = 'none'; // Always hide submit after initial interaction
+        userNameInput.style.display = 'none'; // Hide input field
+        submitNameBtn.style.display = 'none'; // Hide submit button
+        closeWelcomeBtn.style.display = 'none'; // Ensure Close button is hidden by default for this flow
 
         modalMessage.textContent = 'Generating a personalized message...'; // Loading message
 
@@ -244,12 +245,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (modalMessage) modalMessage.textContent = "What should I call you?";
             if (userNameInput) userNameInput.style.display = 'block';
             if (submitNameBtn) submitNameBtn.style.display = 'block';
-            if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none'; // Hide close button
+            if (closeWelcomeBtn) closeWelcomeBtn.style.display = 'none'; // Ensure Close button is hidden
         } else {
             // Returning user: set name, show AI message, auto-close
             if (userNameDisplay) {
                 userNameDisplay.textContent = storedUserName;
             }
+            // Show the AI welcome overlay and it will auto-close
             await showWelcomeOverlay(storedUserName, false);
         }
     } else {
@@ -275,11 +277,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // Ensure the "Close" button is initially hidden and its listener is removed if not used
+    // Ensure the "Close" button is always hidden for this flow
     if (closeWelcomeBtn) {
-        closeWelcomeBtn.style.display = 'none'; // Ensure it's hidden by default for this flow
-        // Remove any existing click listeners if they were attached
-        closeWelcomeBtn.removeEventListener('click', function() {}); // Dummy function to remove all listeners
+        closeWelcomeBtn.style.display = 'none';
     }
 
 
@@ -470,6 +470,22 @@ document.addEventListener('DOMContentLoaded', async function() {
             .catch(error => {
                 console.error('Error fetching quote:', error);
                 const quotes = [
+                    "Remember, a messy desk is a sign of a creative mind... or just a messy desk. Get to it!",
+                        "You're not procrastinating, you're just giving your tasks time to mature.",
+                        "May your coffee be strong and your to-do list short.",
+                        "Don't worry about failures, worry about the chances you miss when you don't even try. (Also, don't miss lunch.)",
+                        "Life is short. Smile while you still have teeth. And finish that task!",
+                        "The only thing standing between you and your goal is the BS story you keep telling yourself. And maybe that one task you keep avoiding.",
+                        "You're amazing. Now go prove it to your to-do list.",
+                        "Success is the sum of small efforts repeated day in and day out. Like checking off tiny tasks.",
+                        "You are capable of amazing things. Especially after coffee.",
+                        "Even the smallest step in the right direction is a step. Especially if it's towards the fridge.",
+                        "Be a stardust soul with a to-do list.",
+                        "You've got this. And if you don't, there's always tomorrow (but try today!).",
+                        "The best way to predict the future is to create it. One task at a time.",
+                        "You are braver than you believe, stronger than you seem, and smarter than you think. And you can definitely conquer that to-do list.",
+                        "Sending you a virtual hug and a gentle reminder to tackle that one thing.",
+                        "You are the artist of your own life. Don't hand the paintbrush to anyone else.",
                     "Believe you can and you're halfway there.",
                     "Success is not final, failure is not fatal: It is the courage to continue that counts.",
                     "Don’t watch the clock; do what it does. Keep going.",

@@ -58,7 +58,7 @@ body.dark-mode h1 {
     font-family: 'Quicksand', sans-serif; /* New font for greeting */
     font-size: 1.5em; /* Larger font size for impact */
     font-weight: 600; /* Bold font weight */
-    color: #007bff; /* Blue color for light mode */
+    color: #333; /* Default dark text for light mode */
     margin-top: 20px; /* Space above */
     margin-bottom: 20px; /* Space below */
     opacity: 0; /* Hidden initially for animation */
@@ -67,7 +67,7 @@ body.dark-mode h1 {
 }
 
 body.dark-mode .greeting-message {
-    color: #A8DADC; /* Accent 1 for dark mode */
+    color: #E4E4E4; /* Primary Text: light gray for dark mode */
 }
 
 .greeting-message #userName {
@@ -77,7 +77,7 @@ body.dark-mode .greeting-message {
 }
 
 body.dark-mode .greeting-message #userName {
-    color: #FFC1CC; /* Soft pink for name in dark mode */
+    color: #A8DADC; /* Accent 1 for name in dark mode */
 }
 
 /* New Hover Effect for userName */
@@ -166,14 +166,14 @@ body.dark-mode .feature-card {
 .feature-card:hover {
     transform: translateY(-5px); /* Lift effect on hover */
     /* Combined box-shadow: original shadow + glowing shadow */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 0 0 3px rgba(0, 123, 255, 0.25), 0 0 8px rgba(0, 123, 255, 0.5);
-    border-color: #007bff; /* Blue border on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 0 0 3px rgba(0, 123, 255, 0.25), 0 0 8px rgba(0, 123, 255, 0.5) !important; /* Added !important */
+    border-color: #007bff !important; /* Blue border on hover - Added !important */
 }
 
 body.dark-mode .feature-card:hover {
     /* Combined box-shadow: original shadow + glowing shadow in dark mode */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.4), 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.4);
-    border-color: #FFFFFF; /* White border on hover in dark mode */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4), 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.4) !important; /* Added !important */
+    border-color: #FFFFFF !important; /* White border on hover in dark mode - Added !important */
 }
 
 
@@ -247,16 +247,16 @@ body.dark-mode #currentDateDisplay {
 /* Glowing effect on task input on hover/focus */
 #taskInput:focus,
 #taskInput:hover {
-    border-color: #007bff; /* Blue border on focus/hover */
+    border-color: #007bff !important; /* Blue border on focus/hover - Added !important */
     /* Blue glowing effect for text area */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25), 0 0 8px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25), 0 0 8px rgba(0, 123, 255, 0.5) !important; /* Added !important */
 }
 
 body.dark-mode #taskInput:focus,
 body.dark-mode #taskInput:hover {
-    border-color: #A8DADC; /* Accent 1 border on focus/hover in dark mode */
+    border-color: #A8DADC !important; /* Accent 1 border on focus/hover in dark mode - Added !important */
     /* White glowing effect for text area in dark mode */
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.4) !important; /* Added !important */
 }
 
 body.dark-mode #taskInput {
