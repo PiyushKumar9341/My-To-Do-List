@@ -7,7 +7,6 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const API_KEY = process.env.GEMINI_API_KEY;
 
 // Initialize the Google Generative AI client.
-// This will throw an error if API_KEY is undefined, which is good for debugging.
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 // This is the main handler function that Netlify (AWS Lambda) will execute.
@@ -22,7 +21,6 @@ exports.handler = async function(event, context) {
     }
 
     // Basic check for API key presence at runtime.
-    // (A more robust check should also be done at deployment if possible, but this catches runtime issues).
     if (!API_KEY) {
         console.error("RUNTIME ERROR: GEMINI_API_KEY environment variable is missing.");
         return {
@@ -43,13 +41,11 @@ exports.handler = async function(event, context) {
                 body: JSON.stringify({ error: "User name is required in the request body." })
             };
         }
-        // timeOfDay is optional, will default in prompt if not provided.
 
-        // Get the generative model. 'gemini-pro' is suitable for text generation.
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        // Get the generative model. Changed from 'gemini-pro' to 'gemini-1.0-pro' for better availability.
+        const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" }); // FIX IS HERE
 
         // Construct the prompt for the AI model.
-        // It's designed to be friendly, personalized, and motivational.
         const prompt = `Generate a short, friendly, and motivational welcome message for a to-do list app user. 
         Address the user by name: ${userName}. 
         Mention the current time of day: ${timeOfDay || 'day'}.
