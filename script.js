@@ -502,3 +502,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.warn("Quote element not found. Quote feature will not function.");
     }
 });
+

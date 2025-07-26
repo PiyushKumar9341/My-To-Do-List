@@ -9,6 +9,7 @@ body {
     padding: 0;
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
     color: #333; /* Default text color */
+    overflow-x: hidden; /* Prevents horizontal scrolling caused by wide shadows */
 }
 
 /* Dark Mode Styles */
@@ -28,14 +29,14 @@ body.dark-mode {
     text-align: center;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
-    /* Glowing effect for the main container in light mode (blue glow) */
-    box-shadow: 0 10px 50px rgba(0, 123, 255, 0.3), 0 0 30px rgba(0, 123, 255, 0.2);
+    /* Glowing effect for the container in light mode (blue glow) */
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3), 0 0 20px rgba(0, 123, 255, 0.2);
 }
 
 body.dark-mode .container {
     background-color: #3A3A3A; /* Slightly lighter than body background for contrast */
-    /* Glowing effect for the main container in dark mode (white glow) */
-    box-shadow: 0 10px 50px rgba(255, 255, 255, 0.15), 0 0 30px rgba(255, 255, 255, 0.1);
+    /* Glowing effect for the container in dark mode (white glow) */
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15), 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 /* Heading Styles */
@@ -55,8 +56,9 @@ body.dark-mode h1 {
 
 /* Personalized Greeting Message Styling */
 .greeting-message {
-    font-size: 1.2em; /* Slightly smaller, more balanced */
-    font-weight: 500; /* Regular weight */
+    font-family: 'Quicksand', sans-serif; /* New font for greeting */
+    font-size: 1.5em; /* Larger font size for impact */
+    font-weight: 600; /* Bold font weight */
     color: #333; /* Default dark text for light mode */
     margin-top: 20px; /* Space above */
     margin-bottom: 20px; /* Space below */
@@ -150,29 +152,43 @@ body.dark-mode h2.section-title {
     border: 1px solid #e2e6ea;
     border-radius: 10px;
     padding: 15px; /* Reduced padding */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    /* Combined transition for smooth hover effects including the glow shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Default shadow, no glow here */
     transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 body.dark-mode .feature-card {
     background-color: #3A3A3A;
     border-color: #555;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Default shadow in dark mode, no glow here */
 }
 
-/* Glowing effect on each feature card on hover */
-.feature-card:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
-    /* Combined box-shadow: original shadow + glowing shadow */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 0 0 3px rgba(0, 123, 255, 0.25), 0 0 8px rgba(0, 123, 255, 0.5) !important; /* Added !important */
-    border-color: #007bff !important; /* Blue border on hover - Added !important */
+/* Glowing effect on each feature card on hover (Desktop only) */
+@media (min-width: 769px) { /* Apply hover glow only on screens wider than mobile */
+    .feature-card:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+        /* Combined box-shadow: original shadow + glowing shadow */
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 0 0 3px rgba(0, 123, 255, 0.25), 0 0 8px rgba(0, 123, 255, 0.5) !important;
+        border-color: #007bff !important; /* Blue border on hover */
+    }
+
+    body.dark-mode .feature-card:hover {
+        /* Combined box-shadow: original shadow + glowing shadow in dark mode */
+        box-shadow: 0 6px 12px rgba(0,0,0,0.4), 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.4) !important;
+        border-color: #FFFFFF !important; /* White border on hover in dark mode */
+    }
 }
 
-body.dark-mode .feature-card:hover {
-    /* Combined box-shadow: original shadow + glowing shadow in dark mode */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.4), 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.4) !important; /* Added !important */
-    border-color: #FFFFFF !important; /* White border on hover in dark mode - Added !important */
+/* Constant Glowing effect on all feature cards on smaller screens (Mobile) */
+@media (max-width: 768px) {
+    .feature-card {
+        /* Apply glow constantly on mobile */
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2), 0 0 8px rgba(0, 123, 255, 0.4) !important;
+        border-color: #007bff !important;
+    }
+    body.dark-mode .feature-card {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 0 8px rgba(255, 255, 255, 0.2) !important;
+        border-color: #FFFFFF !important;
+    }
 }
 
 
@@ -284,11 +300,11 @@ body.dark-mode #taskInput {
 }
 
 body.dark-mode #addTaskBtn {
-    background-color: #B39CD0; /* Button/CTA: lavender */
-    color: #2C2C2C; /* Dark text for contrast */
+    background-color: #B39CD0;
+    color: #2C2C2C;
 }
 body.dark-mode #addTaskBtn:hover {
-    background-color: #9B82B8; /* Darker lavender on hover */
+    background-color: #9B82B8;
 }
 
 /* Filter Buttons Group */
@@ -300,7 +316,7 @@ body.dark-mode #addTaskBtn:hover {
 }
 
 .filter-btn {
-    background-color: #007bff; /* Blue */
+    background-color: #007bff;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -312,24 +328,24 @@ body.dark-mode #addTaskBtn:hover {
 }
 
 .filter-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
     transform: translateY(-1px);
 }
 
 .filter-btn.active {
-    background-color: #0056b3; /* Active state */
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); /* Inset shadow for active */
+    background-color: #0056b3;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
 body.dark-mode .filter-btn {
-    background-color: #B39CD0; /* Button/CTA: lavender */
-    color: #2C2C2C; /* Dark text for contrast */
+    background-color: #B39CD0;
+    color: #2C2C2C;
 }
 body.dark-mode .filter-btn:hover {
-    background-color: #9B82B8; /* Darker lavender on hover */
+    background-color: #9B82B8;
 }
 body.dark-mode .filter-btn.active {
-    background-color: #9B82B8; /* Darker lavender for active */
+    background-color: #9B82B8;
 }
 
 
@@ -342,7 +358,7 @@ body.dark-mode .filter-btn.active {
 }
 
 .import-export button {
-    background-color: #17a2b8; /* Teal */
+    background-color: #17a2b8;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -354,16 +370,16 @@ body.dark-mode .filter-btn.active {
 }
 
 .import-export button:hover {
-    background-color: #138496; /* Darker teal on hover */
+    background-color: #138496;
     transform: translateY(-1px);
 }
 
 body.dark-mode .import-export button {
-    background-color: #B39CD0; /* Button/CTA: lavender */
-    color: #2C2C2C; /* Dark text for contrast */
+    background-color: #B39CD0;
+    color: #2C2C2C;
 }
 body.dark-mode .import-export button:hover {
-    background-color: #9B82B8; /* Darker lavender on hover */
+    background-color: #9B82B8;
 }
 
 /* Task List Styling */
@@ -375,16 +391,17 @@ body.dark-mode .import-export button:hover {
 }
 
 #taskList li {
-    background-color: #f8f9fa; /* Light grey background */
-    border: 1px solid #e2e6ea; /* Subtle border */
+    background-color: #f8f9fa;
+    border: 1px solid #e2e6ea;
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
     display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to next line */
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Added transition for completed state */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Very light shadow */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 body.dark-mode #taskList li {
@@ -393,30 +410,47 @@ body.dark-mode #taskList li {
     color: #E4E4E4;
 }
 
+#taskList li span { /* Style for the task text itself */
+    flex-grow: 1; /* Allow text to grow */
+    flex-shrink: 1; /* Allow text to shrink */
+    min-width: 100px; /* Minimum width for text before wrapping */
+    word-break: break-all; /* Break long words */
+    overflow-wrap: break-word; /* Ensure wrapping for long words */
+    margin-right: 10px; /* Space between text and buttons */
+}
+
+#taskList li .flex.space-x-2 { /* The container for Complete/Delete buttons */
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    display: flex;
+    gap: 5px; /* Smaller gap between buttons */
+    margin-left: auto; /* Push buttons to the right */
+}
+
+
 #taskList li.completed span {
-    text-decoration: line-through; /* Strikethrough for completed tasks */
-    color: #6c757d; /* Muted color */
+    text-decoration: line-through;
+    color: #6c757d;
 }
 
 /* Enhanced styling for completed tasks */
 body.dark-mode #taskList li.completed {
-    background-color: #4A4A4A; /* Slightly different dark background for completed */
+    background-color: #4A4A4A;
     border-color: #7A7A7A;
 }
 body.dark-mode #taskList li.completed span {
-    color: #A8DADC; /* Accent 1 for completed text */
+    color: #A8DADC;
 }
 #taskList li.completed {
-    background-color: #d4edda; /* Light green for completed tasks */
+    background-color: #d4edda;
     border-color: #c3e6cb;
-    color: #155724; /* Dark green text for contrast */
+    color: #155724;
 }
 #taskList li.completed .complete-btn {
-    background-color: #ffc107; /* Yellow for "Undo" */
+    background-color: #ffc107;
     color: #333;
 }
 body.dark-mode #taskList li.completed .complete-btn {
-    background-color: #FFC1CC; /* Accent 2: soft pink for "Undo" in dark mode */
+    background-color: #FFC1CC;
     color: #2C2C2C;
 }
 
@@ -428,13 +462,13 @@ body.dark-mode #taskList li.completed .complete-btn {
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.85em;
-    margin-left: 8px; /* Space between buttons */
+    /* Removed margin-left here as it's handled by gap in parent flex container */
     transition: background-color 0.2s ease, transform 0.1s ease;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 #taskList li .complete-btn {
-    background-color: #28a745; /* Green */
+    background-color: #28a745;
     color: white;
 }
 #taskList li .complete-btn:hover {
@@ -443,15 +477,15 @@ body.dark-mode #taskList li.completed .complete-btn {
 }
 
 body.dark-mode #taskList li .complete-btn {
-    background-color: #B39CD0; /* Button/CTA: lavender */
+    background-color: #B39CD0;
     color: #2C2C2C;
 }
-body.dark-mode #taskList li .complete-btn:hover {
+body.dark-mode #taskList li.complete-btn:hover {
     background-color: #9B82B8;
 }
 
 #taskList li .delete-btn {
-    background-color: #dc3545; /* Red */
+    background-color: #dc3545;
     color: white;
 }
 #taskList li .delete-btn:hover {
@@ -460,10 +494,10 @@ body.dark-mode #taskList li .complete-btn:hover {
 }
 
 body.dark-mode #taskList li .delete-btn {
-    background-color: #E44D5A; /* Slightly softer red for dark mode delete */
+    background-color: #E44D5A;
     color: #E4E4E4;
 }
-body.dark-mode #taskList li .delete-btn:hover {
+body.dark-mode #taskList li.delete-btn:hover {
     background-color: #C83A45;
 }
 
@@ -471,10 +505,10 @@ body.dark-mode #taskList li .delete-btn:hover {
 #quote {
     font-style: italic;
     color: #555;
-    margin-top: 5px; /* Adjusted margin to be closer to title */
-    margin-bottom: 20px; /* Space below quote */
+    margin-top: 5px;
+    margin-bottom: 20px;
     font-size: 1.1em;
-    padding: 0 10px; /* Some padding for smaller screens */
+    padding: 0 10px;
 }
 
 body.dark-mode #quote {
@@ -592,7 +626,6 @@ body.dark-mode #messageBox {
     outline: none;
     background-color: #007bff;
     color: white;
-    cursor: pointer;
     padding: 15px;
     border-radius: 50%;
     font-size: 18px;
@@ -667,18 +700,19 @@ body.dark-mode .section-title.active {
     padding: 30px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     max-width: 400px;
     width: 90%;
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
     /* Glowing effect for the modal itself */
-    box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2), 0 0 20px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.6), 0 0 40px rgba(0, 123, 255, 0.3); /* Blue glow, scattered wide */
+    border: none; /* Ensure no border */
 }
 body.dark-mode #welcomeModal {
     background: #3A3A3A;
     color: #E4E4E4;
     /* Glowing effect for the modal itself in dark mode */
-    box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2), 0 0 20px rgba(0, 123, 255, 0.4); /* Changed to blue glow for dark mode */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 255, 255, 0.2); /* White glow, scattered wide */
+    border: none; /* Ensure no border */
 }
 body.dark-mode #welcomeModal h2 {
     color: #007bff;
